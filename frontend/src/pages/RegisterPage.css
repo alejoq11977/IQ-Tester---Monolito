@@ -1,0 +1,588 @@
+/* RegisterPage.css - Estilos para la página de registro manteniendo coherencia visual */
+
+.register-container {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    background: linear-gradient(135deg, #0F172A, #1E293B, #334155);
+    color: white;
+}
+
+/* Efectos de fondo similares pero con variaciones */
+.register-container::before {
+    content: '';
+    position: fixed;
+    top: 15%;
+    right: -12%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 12s ease-in-out infinite;
+    z-index: -1;
+}
+
+.register-container::after {
+    content: '';
+    position: fixed;
+    bottom: 15%;
+    left: -12%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+    z-index: -1;
+}
+
+/* Wrapper principal del formulario */
+.register-wrapper {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Tarjeta del formulario */
+.register-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 1.5rem;
+    padding: 3.5rem;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 60px rgba(168, 85, 247, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.register-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #C084FC, #38BDF8, #22C55E);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Encabezado del registro */
+.register-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.register-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(90deg, #C084FC, #38BDF8, #22C55E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.register-subtitle {
+    color: #CBD5E1;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* Icono de bienvenida */
+.welcome-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #C084FC, #38BDF8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Formulario */
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+/* Grupos de input */
+.input-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-label {
+    color: #E2E8F0;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.input-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+}
+
+/* Inputs estilizados */
+.register-input {
+    width: 100%;
+    padding: 1rem 1.5rem 1rem 3rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    font-family: inherit;
+    position: relative;
+}
+
+.register-input::placeholder {
+    color: #64748B;
+    transition: opacity 0.3s ease;
+}
+
+.register-input:focus {
+    border-color: #38BDF8;
+    background: rgba(56, 189, 248, 0.05);
+    box-shadow: 
+        0 0 0 3px rgba(56, 189, 248, 0.1),
+        0 8px 25px rgba(56, 189, 248, 0.15);
+    transform: translateY(-1px);
+}
+
+.register-input:focus::placeholder {
+    opacity: 0.7;
+}
+
+/* Iconos dentro de los inputs */
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon .input-icon-inner {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #64748B;
+    transition: color 0.3s ease;
+    z-index: 1;
+}
+
+.input-with-icon:focus-within .input-icon-inner {
+    color: #38BDF8;
+}
+
+/* Validación visual */
+.register-input:valid:not(:placeholder-shown) {
+    border-color: rgba(34, 197, 94, 0.6);
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.register-input:invalid:not(:placeholder-shown) {
+    border-color: rgba(239, 68, 68, 0.6);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+/* Indicadores de fortaleza de contraseña */
+.password-strength {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.25rem;
+}
+
+.strength-bar {
+    height: 3px;
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    transition: background-color 0.3s ease;
+}
+
+.strength-bar.weak { background-color: #EF4444; }
+.strength-bar.medium { background-color: #F59E0B; }
+.strength-bar.strong { background-color: #22C55E; }
+
+.strength-text {
+    font-size: 0.8rem;
+    color: #94A3B8;
+    margin-top: 0.25rem;
+    text-align: center;
+}
+
+/* Botón de registro */
+.register-button {
+    width: 100%;
+    padding: 1.3rem 2rem;
+    background: linear-gradient(135deg, #C084FC, #38BDF8, #22C55E);
+    border: none;
+    border-radius: 0.75rem;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    margin-top: 0.5rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-family: inherit;
+}
+
+.register-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.register-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 15px 35px rgba(192, 132, 252, 0.4),
+        0 0 40px rgba(192, 132, 252, 0.2);
+    background: linear-gradient(135deg, #A855F7, #0EA5E9, #16A34A);
+}
+
+.register-button:hover::before {
+    left: 100%;
+}
+
+.register-button:active {
+    transform: translateY(-1px);
+}
+
+.register-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Estado de carga */
+.register-button .loading-spinner-small {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+/* Mensaje de error */
+.error-message {
+    padding: 1rem 1.5rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 0.75rem;
+    color: #FCA5A5;
+    font-size: 0.95rem;
+    text-align: center;
+    margin-top: 1rem;
+    animation: shake 0.5s ease-in-out, fadeInUp 0.3s ease-out;
+    backdrop-filter: blur(10px);
+    line-height: 1.5;
+}
+
+/* Mensaje de éxito */
+.success-message {
+    padding: 1rem 1.5rem;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 0.75rem;
+    color: #86EFAC;
+    font-size: 0.95rem;
+    text-align: center;
+    margin-top: 1rem;
+    animation: fadeInUp 0.3s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+/* Enlaces de navegación */
+.register-links {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.login-link {
+    color: #CBD5E1;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.login-link a {
+    color: #38BDF8;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.login-link a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #38BDF8, #C084FC);
+    transition: width 0.3s ease;
+}
+
+.login-link a:hover {
+    color: #0EA5E9;
+    transform: translateY(-1px);
+}
+
+.login-link a:hover::after {
+    width: 100%;
+}
+
+/* Términos y condiciones */
+.terms-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: #CBD5E1;
+    line-height: 1.5;
+}
+
+.terms-checkbox input[type="checkbox"] {
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: #38BDF8;
+    cursor: pointer;
+}
+
+.terms-checkbox a {
+    color: #38BDF8;
+    text-decoration: none;
+}
+
+.terms-checkbox a:hover {
+    text-decoration: underline;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0) rotate(0deg); 
+    }
+    25% { 
+        transform: translateY(-15px) rotate(0.5deg); 
+    }
+    50% { 
+        transform: translateY(-30px) rotate(0deg); 
+    }
+    75% { 
+        transform: translateY(-15px) rotate(-0.5deg); 
+    }
+}
+
+@keyframes shimmer {
+    0% { 
+        transform: translateX(-100%); 
+    }
+    50% { 
+        transform: translateX(100%); 
+    }
+    100% { 
+        transform: translateX(-100%); 
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1); 
+        opacity: 1; 
+    }
+    50% { 
+        transform: scale(1.05); 
+        opacity: 0.8; 
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Entrada escalonada para elementos */
+.input-group:nth-child(1) { animation-delay: 0.1s; }
+.input-group:nth-child(2) { animation-delay: 0.2s; }
+.input-group:nth-child(3) { animation-delay: 0.3s; }
+.input-group:nth-child(4) { animation-delay: 0.4s; }
+.register-button { animation-delay: 0.5s; }
+.register-links { animation-delay: 0.6s; }
+
+.input-group,
+.register-button,
+.register-links {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .register-container {
+        padding: 1rem;
+    }
+    
+    .register-card {
+        padding: 2.5rem 2rem;
+        margin: 1rem;
+    }
+    
+    .register-title {
+        font-size: 2rem;
+    }
+    
+    .register-subtitle {
+        font-size: 1rem;
+    }
+    
+    .register-input {
+        padding: 0.9rem 1.25rem 0.9rem 2.75rem;
+        font-size: 0.95rem;
+    }
+    
+    .register-button {
+        padding: 1.1rem 2rem;
+        font-size: 1rem;
+    }
+    
+    .welcome-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .register-card {
+        padding: 2rem 1.5rem;
+        border-radius: 1.25rem;
+    }
+    
+    .register-title {
+        font-size: 1.8rem;
+    }
+    
+    .register-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .register-input {
+        padding: 0.85rem 1rem 0.85rem 2.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .register-button {
+        padding: 1rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .input-label {
+        font-size: 0.85rem;
+    }
+    
+    .welcome-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .register-card::before {
+        animation: none;
+    }
+}
+
+/* Micro-interacciones adicionales */
+.input-group:focus-within .input-label {
+    color: #38BDF8;
+    transition: color 0.3s ease;
+}
+
+/* Estados de hover mejorados */
+.register-button:focus-visible {
+    outline: 2px solid #38BDF8;
+    outline-offset: 2px;
+}
+
+/* Mejoras para tema oscuro */
+@media (prefers-color-scheme: dark) {
+    .register-card {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.08);
+    }
+    
+    .register-input {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.08);
+    }
+}

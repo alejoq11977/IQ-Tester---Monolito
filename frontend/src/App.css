@@ -1,0 +1,78 @@
+/* === NAVBAR === */
+.navbar {
+  background: linear-gradient(135deg, #0F172A, #1E293B, #334155);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Izquierda */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: transform 0.2s ease, text-shadow 0.2s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Derecha */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-user {
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+/* Botón */
+.nav-button {
+  background: white;
+  color: #007bff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  background: #f1f1f1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
