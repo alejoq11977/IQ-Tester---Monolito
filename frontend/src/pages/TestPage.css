@@ -545,3 +545,15 @@
         border-color: rgba(255, 255, 255, 0.08);
     }
 }
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* separación entre icono y texto */
+  font-size: 16px; /* tamaño del texto */
+}
+
+.timer-icon {
+  width: 20px;   /* ajusta el tamaño del icono */
+  height: 20px;
+}

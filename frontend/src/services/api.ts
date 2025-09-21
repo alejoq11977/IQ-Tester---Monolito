@@ -11,6 +11,7 @@ const axiosInstance = axios.create({
   baseURL: API_BASE_URL
 });
 
+
 // El interceptor se adjunta a ESTA instancia.
 // Se ejecutará ANTES de cada petición hecha con 'axiosInstance'.
 axiosInstance.interceptors.request.use(
@@ -46,20 +47,22 @@ export const fetchQuestionsForTest = async (testId: string): Promise<IQuestion[]
   return response.data;
 };
 
-// CORRECCIÓN PRINCIPAL: Esta función ya no necesita recibir el user_id.
-// El backend lo deduce del token que el interceptor está añadiendo.
-export const submitTestResults = async (testId: string, answers: IUserAnswer[]): Promise<ISubmissionResponse> => {
-  // El payload ya no incluye el user_id
+
+export const submitTestResults = async (attemptId: string, answers: IUserAnswer[]): Promise<ISubmissionResponse> => {
   const payload = {
-    test_id: parseInt(testId, 10),
+    attemptId: attemptId,
     answers: answers
   };
-  // Usamos axiosInstance
   const response = await axiosInstance.post(`/results/submit/`, payload);
   return response.data;
 };
 
 export const fetchResultHistory = async (): Promise<IResultHistory[]> => {
   const response = await axiosInstance.get(`/results/history/`);
+  return response.data;
+};
+
+export const startTestAttempt = async (testId: string): Promise<{ attemptId: string }> => {
+  const response = await axiosInstance.post(`/results/start/`, { test_id: testId });
   return response.data;
 };

@@ -1,12 +1,12 @@
 export interface ITest {
-  id: number;
+  id: string;
   name: string;
   description: string;
   time_limit_minutes: number;
 }
 
 export interface IQuestion {
-  id: number;
+  id: string;
   text: string;
   option1: string;
   option2: string;
@@ -15,7 +15,7 @@ export interface IQuestion {
 }
 
 export interface IUserAnswer {
-  question_id: number;
+  question_id: string;
   answer: string;
 }
 

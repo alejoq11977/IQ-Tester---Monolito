@@ -1,7 +1,7 @@
 // src/pages/HomePage.tsx
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { fetchTests } from '../services/api';
+import { useNavigate } from 'react-router-dom';
+import { fetchTests, startTestAttempt } from '../services/api';
 import { type ITest } from '../types';
 import './HomePage.css';
 
@@ -9,6 +9,8 @@ const HomePage: React.FC = () => {
   const [tests, setTests] = useState<ITest[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [startingTestId, setStartingTestId] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getTests = async () => {
@@ -25,6 +27,26 @@ const HomePage: React.FC = () => {
 
     getTests();
   }, []);
+
+  const handleStartTest = async (test: ITest) => {
+    setStartingTestId(test.id); // Muestra el spinner en este botón
+    try {
+      // 1. Llama al backend para crear el intento
+      const { attemptId } = await startTestAttempt(test.id);
+      
+      // 2. Navega a la página del test, pasando los datos necesarios en el estado
+      navigate(`/test/${test.id}`, {
+        state: {
+          attemptId: attemptId,
+          timeLimit: test.time_limit_minutes,
+        },
+      });
+    } catch (err) {
+      setError(`No se pudo iniciar la prueba. Inténtalo de nuevo.`);
+      console.error(err);
+      setStartingTestId(null); // Oculta el spinner en caso de error
+    }
+  };
 
   if (loading) {
     return (
@@ -90,9 +112,13 @@ const HomePage: React.FC = () => {
                 </div>
               </div>
 
-              <Link to={`/test/${test.id}`} className="start-test-button">
-                Comenzar Prueba
-              </Link>
+              <button
+                onClick={() => handleStartTest(test)}
+                className="start-test-button"
+                disabled={startingTestId !== null} // Deshabilita todos los botones mientras uno se está iniciando
+              >
+                {startingTestId === test.id ? 'Iniciando...' : 'Comenzar Prueba'}
+              </button>
             </li>
           ))}
         </ul>

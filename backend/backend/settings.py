@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import firebase_admin
+from firebase_admin import credentials
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -138,3 +139,11 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework_simplejwt.authentication.JWTAuthentication', 
             ],
 }
+
+# Construye la ruta al archivo de credenciales de forma segura
+SERVICE_ACCOUNT_KEY_PATH = BASE_DIR / "serviceAccountKey.json"
+
+# Inicializa la app de Firebase. El 'if' evita que se inicialice múltiples veces.
+if not firebase_admin._apps:
+    cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
+    firebase_admin.initialize_app(cred)

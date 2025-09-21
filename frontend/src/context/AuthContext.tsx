@@ -22,6 +22,7 @@ interface DecodedToken {
 
 interface AuthContextType {
   user: User | null;
+  loading: boolean;
   login: (tokens: { access: string; refresh: string }) => void;
   logout: () => void;
 }
@@ -30,6 +31,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -53,6 +55,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         localStorage.removeItem('refreshToken');
       }
     }
+    setLoading(false); 
   }, []);
 
   const login = (tokens: { access: string; refresh: string }) => {
@@ -71,7 +74,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,28 +1,28 @@
 # results/serializers.py
 from rest_framework import serializers
-from .models import Result
-from questions.models import Question # Necesitamos el modelo Question
-from tests.serializers import TestSerializer 
+from tests.serializers import TestSerializer
 
-# Serializer para manejar CADA respuesta individual que envía el usuario
+# AnswerSerializer y SubmissionSerializer se quedan igual, ya están desacoplados
 class AnswerSerializer(serializers.Serializer):
-    # Le decimos a DRF que esperamos un 'question_id' que sea un entero
-    question_id = serializers.IntegerField()
-    # Y una 'answer' que sea una cadena de texto (ej: "option1")
+    question_id = serializers.CharField()
     answer = serializers.CharField()
 
-# Serializer principal para la petición de envío completa
 class SubmissionSerializer(serializers.Serializer):
-    test_id = serializers.IntegerField()
+    test_id = serializers.CharField()
     answers = AnswerSerializer(many=True)
 
-class ResultSerializer(serializers.ModelSerializer):
-    # 'test' es el nombre del campo ForeignKey en el modelo Result.
-    # Al anidar el TestSerializer aquí, le decimos a DRF que incluya
-    # todos los detalles del test (nombre, descripción, etc.) en la respuesta.
-    test = TestSerializer(read_only=True)
-
-    class Meta:
-        model = Result
-        # Incluimos el nuevo campo 'test' en la lista de campos
-        fields = ['id', 'test', 'score', 'created_at']
+# --- MODIFICA ESTE SERIALIZER ---
+# Cambiamos de ModelSerializer a Serializer
+class ResultSerializer(serializers.Serializer):
+    """
+    Serializer desacoplado para manejar los datos del historial de resultados
+    provenientes de Firestore.
+    """
+    id = serializers.CharField(read_only=True)
+    score = serializers.FloatField()
+    created_at = serializers.DateTimeField()
+    test = TestSerializer()
+    
+    # Le decimos explícitamente al serializer que espere un campo llamado 'test'
+    # y que los datos dentro de ese campo deben ser validados y formateados
+    # usando el TestSerializer.
