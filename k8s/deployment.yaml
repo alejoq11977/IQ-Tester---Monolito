@@ -1,0 +1,177 @@
+# k8s/deployment.yaml
+
+# --- Servicio de Autenticación (auth-service) ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      containers:
+      - name: auth-service
+        image: us-central1-docker.pkg.dev/iq-tester-87389/iq-app-repo/auth-service:v1.0.9
+        ports:
+        - containerPort: 8000
+        env:
+        - name: SERVICE_ACCOUNT_KEY_PATH
+          value: "/app/serviceAccountKey.json"
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: auth-service
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+---
+# --- Servicio de Pruebas (tests-service) ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tests-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tests-service
+  template:
+    metadata:
+      labels:
+        app: tests-service
+    spec:
+      containers:
+      - name: tests-service
+        image: us-central1-docker.pkg.dev/iq-tester-87389/iq-app-repo/tests-service:v1.0.9
+        ports:
+        - containerPort: 8000
+        env:
+        - name: SERVICE_ACCOUNT_KEY_PATH
+          value: "/app/serviceAccountKey.json"
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tests-service-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: tests-service
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+---
+# --- Servicio de Preguntas (questions-service) ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: questions-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: questions-service
+  template:
+    metadata:
+      labels:
+        app: questions-service
+    spec:
+      containers:
+      - name: questions-service
+        image: us-central1-docker.pkg.dev/iq-tester-87389/iq-app-repo/questions-service:v1.0.9
+        ports:
+        - containerPort: 8000
+        env:
+        - name: SERVICE_ACCOUNT_KEY_PATH
+          value: "/app/serviceAccountKey.json"
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: questions-service-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: questions-service
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+---
+# --- Servicio de Resultados (results-service) ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: results-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: results-service
+  template:
+    metadata:
+      labels:
+        app: results-service
+    spec:
+      containers:
+      - name: results-service
+        image: us-central1-docker.pkg.dev/iq-tester-87389/iq-app-repo/results-service:v1.0.9
+        ports:
+        - containerPort: 8000
+        env:
+        - name: SERVICE_ACCOUNT_KEY_PATH
+          value: "/app/serviceAccountKey.json"
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: results-service-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: results-service
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
